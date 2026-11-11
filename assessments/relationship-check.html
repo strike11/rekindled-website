@@ -1,0 +1,781 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <!-- SEO (as published by Tilda) -->
+  <title>Relationship Check Assessment powered by Rekindled App</title>
+  <meta property="og:url" content="https://rekindledapp.com/assessments/relationship-check" />
+  <meta property="og:title" content="Relationship Check Assessment powered by Rekindled App" />
+  <meta property="og:description" content="" />
+  <meta property="og:type" content="website" />
+  <link rel="canonical" href="https://rekindledapp.com/assessments/relationship-check">
+  <meta name="robots" content="noindex" />
+  <link rel="shortcut icon" href="/assets/6532-3338-favicon-rek.png" type="image/x-icon" />
+  <!-- Base rules Tilda applied around this page (kept for 1:1 rendering) -->
+  <style id="tilda-compat">
+    #allrecords,body{background-color:none}
+    #allrecords{-webkit-font-smoothing:antialiased}
+    #allrecords a{color:#ff8562;text-decoration:none}
+    #allrecords a,#allrecords button,#allrecords .t-radio,#allrecords .t-checkbox,#allrecords .t-img-select{outline:none}
+    #allrecords a[href^=tel]{color:inherit;text-decoration:none}
+    #allrecords ol{padding-left:22px}
+    #allrecords ul{padding-left:20px}
+    #allrecords b,#allrecords strong{font-weight:700}
+    .t-records{-webkit-font_smoothing:antialiased;background-color:none}
+    .t-records a{color:#ff8562;text-decoration:none}
+    .t-records a[href^=tel]{color:inherit;text-decoration:none}
+    .t-records ol{padding-left:22px;margin-top:0px;margin-bottom:10px}
+    .t-records ul{padding-left:20px;margin-top:0px;margin-bottom:10px}
+  </style>
+</head>
+<body>
+<div id="allrecords" class="t-records">
+<div id="rk-assessment"> <div class="rk-shell"> <div class="rk-card"> <div class="rk-header"> <img src="/assets/3765-6234-navbar-logo.png" alt="Rekindle Logo" class="rk-logo"> <div class="rk-progress-container"> <div class="rk-progress" aria-hidden="true"> <div class="rk-progress-bar" id="rkProgressBar"></div> </div> <div class="rk-step-label" id="rkStepLabel">Question 1 of 10</div> </div> <h2 class="rk-title">Relationship Check</h2> <p class="rk-subtitle">
+            Most couples don’t “break” overnight — they drift. This quick check shows where the drift is happening
+            and what to do next.
+          </p> </div> <form class="rk-form" id="rkForm" novalidate> <!-- Questions will be injected here --> <div id="rkQuestions"></div> <div class="rk-actions"> <button type="button" class="rk-btn rk-btn-ghost" id="rkPrevBtn" disabled>Back</button> <button type="button" class="rk-btn rk-btn-primary" id="rkNextBtn" disabled>Next</button> </div> <div class="rk-reset-container"> <button type="button" class="rk-btn-text" id="rkResetBtn">Reset Assessment</button> </div> <p class="rk-disclaimer">
+            This is not medical or therapeutic advice — it’s a self-check to help you spot “autopilot” patterns.
+          </p> </form> <div class="rk-result" id="rkResult" hidden> <div class="rk-result-header"> <img src="https://is1-ssl.mzstatic.com/image/thumb/PurpleSource211/v4/8f/9f/f2/8f9ff2bd-d91e-7392-c297-aeb5c398e8bc/Placeholder.mill/200x200bb-75.webp" class="rk-app-icon" alt="App Icon"> <div class="rk-result-meta"> <div class="rk-result-kicker">Your Relationship Score</div> <div class="rk-score-display"> <span class="rk-score" id="rkScore">—</span> <span class="rk-score-sub">/ <span id="rkMaxScore">40</span></span> </div> </div> </div> <h3 class="rk-result-title" id="rkResultTitle">—</h3> <p class="rk-result-text" id="rkResultText">—</p> <div class="rk-breakdown"> <h4 class="rk-h4">Focus Areas</h4> <div class="rk-chips" id="rkChips"></div> <div class="rk-reco" id="rkRecoBlock"> <h4 class="rk-h4">Recommendation</h4> <p class="rk-reco-text" id="rkRecoText"></p> <div class="rk-cta"> <a class="rk-btn rk-btn-primary rk-btn-wide" id="rkCtaBtn" href="#" target="_blank" rel="noopener">
+                  Get Your Daily Plan in Rekindled
+                </a> </div> <div class="rk-cta-note">
+                Inside Rekindled: daily “same question for both”, gentle check-ins, progress streaks, and date ideas.
+              </div> </div> </div> <div class="rk-actions rk-actions-bottom"> <button type="button" class="rk-btn rk-btn-ghost" id="rkBackToEditBtn">Edit answers</button> <button type="button" class="rk-btn rk-btn-ghost" id="rkRestartBtn">Restart</button> </div> </div> </div> </div> <style>
+      /* Clean, modern light theme */
+      #rk-assessment { 
+        --rk-bg: #f8f9fc; 
+        --rk-card: #ffffff; 
+        --rk-text: #1a202c; 
+        --rk-muted: #718096; 
+        --rk-border: #e2e8f0;
+        --rk-primary: #7c5cff; 
+        --rk-primary-hover: #6b4ce6;
+        --rk-primary-light: #f3f0ff;
+        --rk-radius: 16px;
+        
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        background-color: var(--rk-bg);
+        min-height: 100vh;
+        display: flex;
+        justify-content: center;
+        padding: 20px;
+        box-sizing: border-box;
+      }
+      
+      #rk-assessment * { box-sizing: border-box; }
+  
+      #rk-assessment .rk-shell {
+        width: 100%;
+        max-width: 600px;
+        margin: 0 auto;
+      }
+  
+      #rk-assessment .rk-card {
+        background: var(--rk-card);
+        border-radius: var(--rk-radius);
+        box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+        overflow: hidden;
+        padding-bottom: 20px;
+      }
+  
+      /* Header */
+      #rk-assessment .rk-header {
+        padding: 32px 24px 20px;
+        text-align: center;
+      }
+      
+      #rk-assessment .rk-logo {
+        height: 120px;
+        margin-bottom: 24px;
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+      }
+
+      #rk-assessment .rk-title {
+        margin: 0 0 8px;
+        color: var(--rk-text);
+        font-size: 24px;
+        font-weight: 700;
+        letter-spacing: -0.02em;
+      }
+      
+      #rk-assessment .rk-subtitle {
+        margin: 0 auto;
+        color: var(--rk-muted);
+        font-size: 15px;
+        line-height: 1.5;
+        max-width: 480px;
+      }
+
+      /* Progress */
+      #rk-assessment .rk-progress-container {
+        margin-bottom: 24px;
+        max-width: 300px;
+        margin-left: auto;
+        margin-right: auto;
+      }
+      
+      #rk-assessment .rk-progress {
+        height: 6px;
+        background: #edf2f7;
+        border-radius: 999px;
+        overflow: hidden;
+        margin-bottom: 8px;
+      }
+      
+      #rk-assessment .rk-progress-bar {
+        height: 100%;
+        width: 0%;
+        background: var(--rk-primary);
+        border-radius: 999px;
+        transition: width 0.3s ease;
+      }
+      
+      #rk-assessment .rk-step-label {
+        font-size: 12px;
+        color: var(--rk-muted);
+        font-weight: 500;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+      }
+  
+      /* Form */
+      #rk-assessment .rk-form { padding: 0 24px 24px; }
+      
+      #rk-assessment .rk-q {
+        display: none;
+        animation: rkFadeIn 0.3s ease;
+      }
+      #rk-assessment .rk-q.is-active { display: block; }
+      
+      @keyframes rkFadeIn {
+        from { opacity: 0; transform: translateY(5px); }
+        to { opacity: 1; transform: translateY(0); }
+      }
+  
+      #rk-assessment .rk-qtitle {
+        margin: 0 0 20px;
+        color: var(--rk-text);
+        font-size: 18px;
+        line-height: 1.4;
+        font-weight: 600;
+      }
+  
+      #rk-assessment .rk-options { display: flex; flex-direction: column; gap: 12px; }
+  
+      #rk-assessment .rk-opt {
+        position: relative;
+        display: flex; 
+        align-items: center;
+        gap: 16px;
+        padding: 16px;
+        border-radius: 12px;
+        border: 2px solid var(--rk-border);
+        background: #fff;
+        cursor: pointer;
+        transition: all 0.2s ease;
+      }
+      
+      #rk-assessment .rk-opt:hover {
+        border-color: #cbd5e0;
+        background: #f7fafc;
+      }
+      
+      #rk-assessment .rk-opt:has(input:checked) {
+        border-color: var(--rk-primary);
+        background: var(--rk-primary-light);
+      }
+      
+      #rk-assessment .rk-opt input {
+        appearance: none;
+        width: 20px;
+        height: 20px;
+        border: 2px solid #cbd5e0;
+        border-radius: 50%;
+        margin: 0;
+        flex-shrink: 0;
+        display: grid;
+        place-content: center;
+      }
+      
+      #rk-assessment .rk-opt input::before {
+        content: "";
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        transform: scale(0);
+        transition: 0.15s transform ease-in-out;
+        background-color: var(--rk-primary);
+      }
+      
+      #rk-assessment .rk-opt input:checked {
+        border-color: var(--rk-primary);
+      }
+      
+      #rk-assessment .rk-opt input:checked::before {
+        transform: scale(1);
+      }
+  
+      #rk-assessment .rk-opt .rk-opttext {
+        color: var(--rk-text);
+        font-size: 15px;
+        font-weight: 500;
+      }
+  
+      /* Actions */
+      #rk-assessment .rk-actions {
+        margin-top: 32px;
+        display: flex;
+        gap: 16px;
+      }
+      
+      #rk-assessment .rk-btn {
+        flex: 1;
+        border: none;
+        padding: 14px 20px;
+        border-radius: 12px;
+        font-size: 16px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.2s ease;
+        text-decoration: none;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+      }
+      
+      #rk-assessment .rk-btn:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+      }
+      
+      #rk-assessment .rk-btn-primary {
+        background: var(--rk-primary);
+        color: white;
+        box-shadow: 0 4px 12px rgba(124, 92, 255, 0.25);
+      }
+      
+      #rk-assessment .rk-btn-primary:hover:not(:disabled) {
+        background: var(--rk-primary-hover);
+        transform: translateY(-1px);
+        box-shadow: 0 6px 16px rgba(124, 92, 255, 0.3);
+      }
+      
+      #rk-assessment .rk-btn-ghost {
+        background: transparent;
+        color: var(--rk-muted);
+        border: 1px solid var(--rk-border);
+      }
+      
+      #rk-assessment .rk-btn-ghost:hover:not(:disabled) {
+        background: #f7fafc;
+        color: var(--rk-text);
+      }
+      
+      #rk-assessment .rk-reset-container {
+        text-align: center;
+        margin-top: 16px;
+      }
+      
+      #rk-assessment .rk-btn-text {
+        background: none;
+        border: none;
+        color: var(--rk-muted);
+        font-size: 13px;
+        cursor: pointer;
+        text-decoration: underline;
+        padding: 8px;
+      }
+  
+      #rk-assessment .rk-disclaimer {
+        margin: 24px 0 0;
+        color: #a0aec0;
+        font-size: 12px;
+        text-align: center;
+        line-height: 1.4;
+      }
+  
+      /* Results */
+      #rk-assessment .rk-result { padding: 0 24px 24px; animation: rkFadeIn 0.4s ease; }
+      
+      #rk-assessment .rk-result-header {
+        display: flex;
+        align-items: center;
+        gap: 20px;
+        margin-bottom: 24px;
+        background: #f8f9fc;
+        padding: 20px;
+        border-radius: 16px;
+      }
+      
+      #rk-assessment .rk-app-icon {
+        width: 64px;
+        height: 64px;
+        border-radius: 14px;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+      }
+      
+      #rk-assessment .rk-result-kicker {
+        font-size: 13px;
+        color: var(--rk-muted);
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        margin-bottom: 4px;
+      }
+      
+      #rk-assessment .rk-score {
+        font-size: 32px;
+        font-weight: 800;
+        color: var(--rk-primary);
+        line-height: 1;
+      }
+      
+      #rk-assessment .rk-score-sub {
+        font-size: 16px;
+        color: var(--rk-muted);
+        font-weight: 500;
+      }
+      
+      #rk-assessment .rk-result-title {
+        font-size: 22px;
+        color: var(--rk-text);
+        margin: 0 0 12px;
+        font-weight: 700;
+      }
+      
+      #rk-assessment .rk-result-text {
+        color: var(--rk-muted);
+        line-height: 1.6;
+        margin-bottom: 24px;
+      }
+      
+      #rk-assessment .rk-breakdown {
+        border-top: 1px solid var(--rk-border);
+        padding-top: 24px;
+      }
+      
+      #rk-assessment .rk-h4 {
+        font-size: 14px;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        color: var(--rk-muted);
+        margin: 0 0 12px;
+      }
+      
+      #rk-assessment .rk-chips {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        margin-bottom: 24px;
+      }
+      
+      #rk-assessment .rk-chip {
+        background: #edf2f7;
+        color: var(--rk-text);
+        padding: 6px 12px;
+        border-radius: 6px;
+        font-size: 13px;
+        font-weight: 500;
+      }
+      
+      #rk-assessment .rk-reco {
+        background: #f0f4ff;
+        border-radius: 12px;
+        padding: 20px;
+        border: 1px solid #dbeafe;
+      }
+      
+      #rk-assessment .rk-reco-text {
+        color: #2d3748;
+        font-size: 15px;
+        line-height: 1.6;
+        margin-bottom: 20px;
+      }
+      
+      #rk-assessment .rk-cta {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+      }
+      
+      #rk-assessment .rk-cta-note {
+        margin-top: 16px;
+        font-size: 12px;
+        color: var(--rk-muted);
+        text-align: center;
+      }
+      
+      #rk-assessment .rk-actions-bottom {
+        margin-top: 24px;
+        display: flex;
+        gap: 12px;
+      }
+      
+      @media (max-width: 480px) {
+        #rk-assessment { padding: 10px; }
+        #rk-assessment .rk-header { padding: 24px 20px 10px; }
+        #rk-assessment .rk-form { padding: 0 20px 20px; }
+        #rk-assessment .rk-result-header { flex-direction: column; text-align: center; }
+        #rk-assessment .rk-actions { flex-direction: column-reverse; }
+        #rk-assessment .rk-btn { width: 100%; }
+      }
+    </style> <script>
+      (function () {
+        // 1) CHANGE THIS TO YOUR REAL LINK
+        const APP_URL = "https://apps.apple.com/us/app/rekindled-relationship-app/id6753715604";
+  
+        const questions = [
+          {
+            id: "q1",
+            area: "Connection",
+            text: "Our conversations are mostly logistics (kids, schedules, bills) — not real connection.",
+            options: [
+              { label: "True — we barely talk beyond logistics", score: 0 },
+              { label: "Often true", score: 1 },
+              { label: "Sometimes true", score: 2 },
+              { label: "Rarely true", score: 3 },
+              { label: "Not true — we regularly have real conversations", score: 4 },
+            ],
+          },
+          {
+            id: "q2",
+            area: "Connection",
+            text: "I feel truly understood by my partner (not just heard).",
+            options: [
+              { label: "No — I often feel unseen / misunderstood", score: 0 },
+              { label: "Usually no", score: 1 },
+              { label: "50/50", score: 2 },
+              { label: "Usually yes", score: 3 },
+              { label: "Yes — I feel deeply seen and understood", score: 4 },
+            ],
+          },
+          {
+            id: "q3",
+            area: "Intimacy & Affection",
+            text: "Physical affection (hugs, touch, closeness) feels natural for us.",
+            options: [
+              { label: "No — it feels forced, awkward, or absent", score: 0 },
+              { label: "Mostly no", score: 1 },
+              { label: "Sometimes", score: 2 },
+              { label: "Mostly yes", score: 3 },
+              { label: "Yes — it feels easy and frequent", score: 4 },
+            ],
+          },
+          {
+            id: "q4",
+            area: "Fun & Novelty",
+            text: "We still create moments that feel like ‘us’ (fun, dates, inside jokes).",
+            options: [
+              { label: "No — we feel like roommates", score: 0 },
+              { label: "Rarely", score: 1 },
+              { label: "Sometimes", score: 2 },
+              { label: "Often", score: 3 },
+              { label: "Yes — we have consistent fun/connection rituals", score: 4 },
+            ],
+          },
+          {
+            id: "q5",
+            area: "Communication",
+            text: "When we disagree, it usually leads to understanding (not circles, shutdown, or silent treatment).",
+            options: [
+              { label: "No — conflicts spiral or we shut down", score: 0 },
+              { label: "Usually no", score: 1 },
+              { label: "Sometimes", score: 2 },
+              { label: "Usually yes", score: 3 },
+              { label: "Yes — we repair quickly and feel closer after", score: 4 },
+            ],
+          },
+          {
+            id: "q6",
+            area: "Appreciation",
+            text: "We express appreciation (thank you, noticing effort) consistently.",
+            options: [
+              { label: "No — it’s rare", score: 0 },
+              { label: "Not often", score: 1 },
+              { label: "Sometimes", score: 2 },
+              { label: "Often", score: 3 },
+              { label: "Yes — we make each other feel valued daily", score: 4 },
+            ],
+          },
+          {
+            id: "q7",
+            area: "Connection",
+            text: "I know what’s going on in my partner’s inner world right now (stress, dreams, worries).",
+            options: [
+              { label: "No — I don’t really know anymore", score: 0 },
+              { label: "A little", score: 1 },
+              { label: "Somewhat", score: 2 },
+              { label: "Mostly", score: 3 },
+              { label: "Yes — we keep each other updated", score: 4 },
+            ],
+          },
+          {
+            id: "q8",
+            area: "Communication",
+            text: "When one of us reaches out (a ‘bid’ for attention/connection), the other usually responds well.",
+            options: [
+              { label: "No — we miss or ignore bids a lot", score: 0 },
+              { label: "Often miss them", score: 1 },
+              { label: "Sometimes respond", score: 2 },
+              { label: "Usually respond", score: 3 },
+              { label: "Yes — we turn toward each other consistently", score: 4 },
+            ],
+          },
+          {
+            id: "q9",
+            area: "Teamwork",
+            text: "We feel like teammates facing life together (not two people managing a household).",
+            options: [
+              { label: "No — it feels separate", score: 0 },
+              { label: "Usually no", score: 1 },
+              { label: "Sometimes", score: 2 },
+              { label: "Usually yes", score: 3 },
+              { label: "Yes — we’re clearly on the same team", score: 4 },
+            ],
+          },
+          {
+            id: "q10",
+            area: "Connection",
+            text: "We have a simple habit that keeps us connected (a daily question, check-in, or ritual).",
+            options: [
+              { label: "No — we have no consistent habit", score: 0 },
+              { label: "Not really", score: 1 },
+              { label: "We try sometimes", score: 2 },
+              { label: "Yes — we do something most days", score: 3 },
+              { label: "Yes — we have a reliable daily connection ritual", score: 4 },
+            ],
+          },
+        ];
+  
+        const maxScore = questions.reduce((s, q) => s + Math.max(...q.options.map(o => o.score)), 0);
+  
+        const elQuestions = document.getElementById("rkQuestions");
+        const elPrev = document.getElementById("rkPrevBtn");
+        const elNext = document.getElementById("rkNextBtn");
+        const elReset = document.getElementById("rkResetBtn");
+        const elProgress = document.getElementById("rkProgressBar");
+        const elStepLabel = document.getElementById("rkStepLabel");
+  
+        const elForm = document.getElementById("rkForm");
+        const elResult = document.getElementById("rkResult");
+        const elScore = document.getElementById("rkScore");
+        const elMaxScore = document.getElementById("rkMaxScore");
+        const elResultTitle = document.getElementById("rkResultTitle");
+        const elResultText = document.getElementById("rkResultText");
+        const elChips = document.getElementById("rkChips");
+        const elRecoText = document.getElementById("rkRecoText");
+        const elCtaBtn = document.getElementById("rkCtaBtn");
+        const elBackToEdit = document.getElementById("rkBackToEditBtn");
+        const elRestart = document.getElementById("rkRestartBtn");
+  
+        elMaxScore.textContent = String(maxScore);
+        elCtaBtn.href = APP_URL;
+  
+        // Render questions
+        questions.forEach((q, idx) => {
+          const wrap = document.createElement("section");
+          wrap.className = "rk-q";
+          wrap.dataset.index = String(idx);
+          wrap.setAttribute("role", "group");
+          wrap.setAttribute("aria-label", `Question ${idx + 1}`);
+  
+          const title = document.createElement("h3");
+          title.className = "rk-qtitle";
+          title.textContent = `${idx + 1}. ${q.text}`;
+  
+          const opts = document.createElement("div");
+          opts.className = "rk-options";
+  
+          q.options.forEach((opt, i) => {
+            const label = document.createElement("label");
+            label.className = "rk-opt";
+  
+            const input = document.createElement("input");
+            input.type = "radio";
+            input.name = q.id;
+            input.value = String(opt.score);
+            input.setAttribute("data-area", q.area);
+            input.setAttribute("aria-label", opt.label);
+  
+            const text = document.createElement("div");
+            text.className = "rk-opttext";
+            text.textContent = opt.label;
+  
+            label.appendChild(input);
+            label.appendChild(text);
+            opts.appendChild(label);
+          });
+  
+          wrap.appendChild(title);
+          wrap.appendChild(opts);
+          elQuestions.appendChild(wrap);
+        });
+  
+        const qEls = Array.from(document.querySelectorAll("#rkQuestions .rk-q"));
+        let currentIndex = 0;
+  
+        function getAnsweredCount() {
+          return questions.reduce((count, q) => {
+            const checked = elForm.querySelector(`input[name="${q.id}"]:checked`);
+            return count + (checked ? 1 : 0);
+          }, 0);
+        }
+  
+        function updateProgress() {
+          const answered = getAnsweredCount();
+          const pct = Math.round((answered / questions.length) * 100);
+          elProgress.style.width = pct + "%";
+          elStepLabel.textContent = `Question ${Math.min(currentIndex + 1, questions.length)} of ${questions.length}`;
+        }
+  
+        function showQuestion(i) {
+          currentIndex = i;
+          qEls.forEach((el, idx) => el.classList.toggle("is-active", idx === i));
+          elPrev.disabled = i === 0;
+  
+          const currentQ = questions[i];
+          const checked = elForm.querySelector(`input[name="${currentQ.id}"]:checked`);
+          elNext.disabled = !checked;
+  
+          elNext.textContent = (i === questions.length - 1) ? "See results" : "Next";
+          updateProgress();
+          window.scrollTo({ top: document.getElementById("rk-assessment").getBoundingClientRect().top + window.scrollY - 20, behavior: "smooth" });
+        }
+  
+        function compute() {
+          const picks = questions.map(q => {
+            const checked = elForm.querySelector(`input[name="${q.id}"]:checked`);
+            return { id: q.id, area: q.area, score: checked ? Number(checked.value) : null, text: q.text };
+          });
+  
+          const total = picks.reduce((s, p) => s + (p.score ?? 0), 0);
+  
+          // Area scores
+          const areas = {};
+          picks.forEach(p => {
+            areas[p.area] = areas[p.area] || { sum: 0, count: 0 };
+            areas[p.area].sum += (p.score ?? 0);
+            areas[p.area].count += 1;
+          });
+  
+          const areaRanking = Object.entries(areas)
+            .map(([area, v]) => ({ area, avg: v.sum / Math.max(v.count, 1), sum: v.sum }))
+            .sort((a, b) => a.avg - b.avg); // lowest first
+  
+          return { total, picks, areaRanking };
+        }
+  
+        function showResults() {
+          const { total, areaRanking } = compute();
+  
+          const bands = [
+            { max: 12, title: "Critical drift (roommates mode)",
+              text: "This looks like disconnection disguised as busyness. The good news: you don’t need a dramatic ‘fix’ — you need a simple, consistent habit that brings you back to each other." },
+            { max: 20, title: "Autopilot + distance",
+              text: "You still care — but connection isn’t happening by default. Small daily moments will change the trajectory faster than occasional big talks." },
+            { max: 28, title: "Stable, but missing depth",
+              text: "You’re not ‘broken’ — but you may be missing consistent micro-moments of closeness. A daily prompt/check-in can quickly rebuild the feeling of being understood." },
+            { max: 35, title: "Strong foundation",
+              text: "You’ve got a lot working. The biggest win now is consistency: keep positive moments frequent so life doesn’t slowly pull you apart." },
+            { max: 40, title: "Thriving connection",
+              text: "You’re doing many things right. Keep it protected: small rituals and intentional questions make closeness compound over time." },
+          ];
+  
+          const band = bands.find(b => total <= b.max) || bands[bands.length - 1];
+  
+          // Focus areas: show up to 3 lowest
+          const focus = areaRanking.slice(0, 3).map(x => x.area);
+  
+          const reco = (() => {
+            if (total <= 12) {
+              return "Start a 7-day ‘reset’ with ONE daily question each — same question for both partners. The goal is to rebuild the loop: know → feel seen → feel close → desire → invest again.";
+            }
+            if (total <= 20) {
+              return "Pick one micro-habit: a daily prompt + 60-second check-in. Consistency matters more than intensity. Make it easy and judgment-free.";
+            }
+            if (total <= 28) {
+              return "Add structure: daily questions + a weekly check-in so you don’t rely on mood or memory. You’ll notice more warmth and better conversations within days.";
+            }
+            if (total <= 35) {
+              return "Lock in the routine: keep a daily connection habit so life doesn’t steal intimacy by accident. Add occasional date ideas to keep novelty alive.";
+            }
+            return "Protect what’s working: keep the daily habit, track progress, and use fresh prompts to keep learning each other as you grow.";
+          })();
+  
+          // UI: hide form, show result
+          elForm.hidden = true;
+          elResult.hidden = false;
+  
+          elScore.textContent = String(total);
+          elResultTitle.textContent = band.title;
+          elResultText.textContent = band.text;
+  
+          // Chips
+          elChips.innerHTML = "";
+          focus.forEach((f, idx) => {
+            const chip = document.createElement("div");
+            chip.className = "rk-chip";
+            chip.textContent = `${idx + 1}) ${f}`;
+            elChips.appendChild(chip);
+          });
+  
+          elRecoText.textContent =
+            `${reco} ` +
+            `Rekindled is built for busy couples: 5 minutes a day, private, no awkward “relationship homework”.`;
+  
+          // Back/edit
+          elBackToEdit.onclick = () => {
+            elResult.hidden = true;
+            elForm.hidden = false;
+            showQuestion(currentIndex);
+          };
+  
+          // Restart
+          elRestart.onclick = () => resetAll();
+  
+          window.scrollTo({ top: document.getElementById("rk-assessment").getBoundingClientRect().top + window.scrollY - 20, behavior: "smooth" });
+        }
+  
+        function resetAll() {
+          elForm.reset();
+          elResult.hidden = true;
+          elForm.hidden = false;
+          currentIndex = 0;
+          updateProgress();
+          showQuestion(0);
+        }
+  
+        // Events
+        elQuestions.addEventListener("change", (e) => {
+          const currentQ = questions[currentIndex];
+          const checked = elForm.querySelector(`input[name="${currentQ.id}"]:checked`);
+          elNext.disabled = !checked;
+          updateProgress();
+        });
+  
+        elPrev.addEventListener("click", () => showQuestion(Math.max(0, currentIndex - 1)));
+  
+        elNext.addEventListener("click", () => {
+          const currentQ = questions[currentIndex];
+          const checked = elForm.querySelector(`input[name="${currentQ.id}"]:checked`);
+          if (!checked) return;
+  
+          if (currentIndex === questions.length - 1) {
+            showResults();
+          } else {
+            showQuestion(currentIndex + 1);
+          }
+        });
+  
+        elReset.addEventListener("click", resetAll);
+  
+        // Init
+        showQuestion(0);
+        updateProgress();
+      })();
+    </script> </div>
+</div>
+</body>
+</html>

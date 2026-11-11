@@ -1,0 +1,37 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "cleanUrls": true,
+  "trailingSlash": false,
+  "redirects": [
+    {
+      "source": "/page83587046",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/page82533916",
+      "destination": "/privacy-policy",
+      "permanent": true
+    },
+    {
+      "source": "/page82536816",
+      "destination": "/terms-of-service",
+      "permanent": true
+    },
+    {
+      "source": "/page84896256",
+      "destination": "/verified",
+      "permanent": true
+    },
+    {
+      "source": "/page115728486",
+      "destination": "/assessments/relationship-check",
+      "permanent": true
+    },
+    {
+      "source": "/page119456546",
+      "destination": "/assessments/anxious-attachment-check",
+      "permanent": true
+    }
+  ]
+}

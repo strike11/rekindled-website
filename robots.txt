@@ -1,0 +1,15 @@
+User-Agent: *
+Disallow: /page115728486.html
+Disallow: /assessments/relationship-check
+Disallow: /page82533916.html
+Disallow: /privacy-policy
+Disallow: /page82536816.html
+Disallow: /terms-of-service
+Disallow: /page84896256.html
+Disallow: /verified
+Disallow: /page119456546.html
+Disallow: /assessments/anxious-attachment-check
+Disallow:
+
+
+Sitemap: https://rekindledapp.com/sitemap.xml
