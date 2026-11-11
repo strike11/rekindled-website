@@ -32,6 +32,11 @@
       "source": "/page119456546",
       "destination": "/assessments/anxious-attachment-check",
       "permanent": true
+    },
+    {
+      "source": "/main-page",
+      "destination": "/",
+      "permanent": true
     }
   ]
 }
